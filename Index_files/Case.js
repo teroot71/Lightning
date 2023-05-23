@@ -1,0 +1,11 @@
+/*
+ * This code is for Internal Salesforce use only, and subject to change without notice.
+ * Customers shouldn't reference this file in any web pages.
+ */
+var CaseFunction={makeTimeline:function(e,k,l,f){function g(){var c;for(c=0;c<d.length;c++){var a=d[c].width,b=d[c].height;d[c].onResize(a,b,a,b);d[c].fireEvent("resize",this,a,b,a,b)}}var d=[],b=document.getElementById("entitlement_timeline");if(null!==b&&"undefined"!==typeof b){var b=[{name:"id",type:"string"},{name:"targetTime",type:"float"},{name:"complete",type:"boolean"},{name:"late",type:"boolean"},{name:"hoverURL",type:"string"},{name:"editURL",type:"string"}],h=new Ext.data.SimpleStore({id:0,
+fields:b,sortInfo:{field:"targetTime",direction:"A"}});h.loadData(e);Ext.data.Record.create(b);var a=Ext.extend(Ext.ux.TimelineEntry,{initComponent:function(){this.statusClass="";this.record.data.complete?this.statusClass=this.record.data.late?"-miss":"-hit":this.record.data.late&&(this.statusClass="-late");a.superclass.initComponent.call(this)},onRender:function(){a.superclass.onRender.apply(this,arguments);this.el.addClass("milestone"+this.statusClass);this.markEl.addClass("milestone-mark"+this.statusClass)},
+initEvents:function(){a.superclass.initEvents.apply(this,arguments);this.el.addClassOnOver("milestone"+this.statusClass+"-over");this.el.addClassOnClick("milestone"+this.statusClass+"-down");this.mon(this.el,"click",this.onClick,this)},onClick:function(a){navigateToUrl(this.record.data.editURL)},onMouseOver:function(a){this.record.data.id&&LookupHoverDetail.getHover(this.el.id,this.record.data.hoverURL).show()},onMouseOut:function(a){this.record.data.id&&LookupHoverDetail.getHover(this.el.id).hide()},
+setupToolTip:function(){this.mon(this.el,"mouseover",this.onMouseOver,this);this.mon(this.el,"mouseout",this.onMouseOut,this)},afterRender:function(){a.superclass.afterRender.apply(this,arguments);this.setupToolTip()},update:function(){a.superclass.update.apply(this,arguments)}});e=new Ext.ux.Timeline({renderTo:CaseUi.TIMELINE_DIV,now:f?l:k,store:h,timeIndex:"targetTime",entryConstructor:a,showOrigin:!0,timeUnit:"minute",precision:"minute",preferredRange:"positive",scaleSpacing:10,minRange:5,rangeIncrement:1});
+d[d.length]=e;f&&e.el.addClass("timeline-closed")}Ext.EventManager.onWindowResize(g);g()}};
+
+//# sourceMappingURL=/javascript/1684699876486/sfdc/source/Case.js.map
